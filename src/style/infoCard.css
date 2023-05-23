@@ -1,0 +1,46 @@
+.info-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-container {
+    width: calc(100% - 10px);
+    border: 5px solid var(--grey);
+}
+
+.card-photo {
+    max-height: fit-content;
+    height: 150px;
+    width: 150px;
+}
+
+.description-box {
+    width: calc(100% - 60px);
+    padding: 15px 30px;
+    background-color: var(--light-blue);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.info {
+    color: var(--green);
+    background-color: var(--light-blue);
+}
+
+.info.list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.value {
+    color: var(--red);
+    background-color: var(--light-blue);
+    padding: 0 7px;
+    border: 5px solid white;
+}
