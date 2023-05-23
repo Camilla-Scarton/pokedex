@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../style/main.css";
 import axios from "axios";
 import Card from "./Card";
 import InfoCard from "./InfoCard";
@@ -7,22 +6,26 @@ import InfoCard from "./InfoCard";
 const Main = () => {
   const url = "https://pokeapi.co/api/v2/pokemon/";
 
+  // page info
   const [pagination, setPagination] = useState({
     offset: 0,
     limit: 15,
-    pokemonSelected: null,
   });
 
+  // pokemon list to fetch and store | with a filtered version
   const [pokemonList, setPokemonList] = useState([]);
   const [loadingList, setLoadingList] = useState(false);
   const [filteredPokemonList, setFilteredPokemonList] = useState([]);
 
+  // pokomen info list to fetch and store
   const [pokemonInfo, setPokemonInfo] = useState([]);
   const [loadingInfo, setLoadingInfo] = useState(false);
 
+  // statusData to know if all pokemon (for list) and all info (for pokedex) are fetched
   const [statusData, setStatusData] = useState(false);
   const [statusError, setStatusError] = useState(false);
 
+  // pokemon list given by range from offset to limit (name+url)
   async function getPokemonList() {
     setLoadingList(true);
     setStatusError(false);
@@ -39,6 +42,7 @@ const Main = () => {
     }
   }
 
+  // pokemon info list given for each pokemon (by name in pokemon list)
   async function getPokemonInfo(pokemonList) {
     setLoadingInfo(true);
     setStatusError(false);
@@ -46,6 +50,7 @@ const Main = () => {
       pokemonList.map(async (pokemon) => {
         setPokemonInfo([]);
         const { data } = await axios.get(pokemon.url);
+        // pokemon info details (sprites for image)
         const { name, id, height, weight, abilities, types, sprites } = data;
         setPokemonInfo((prev) => [
           ...prev,
@@ -61,7 +66,6 @@ const Main = () => {
           },
         ]);
       });
-      setPokemonInfo((prev) => prev.sort((a, b) => a.id > b.id));
       setStatusData(true);
       setLoadingInfo(false);
     } catch (err) {
@@ -72,16 +76,19 @@ const Main = () => {
     setLoadingInfo(false);
   }
 
+  // on first render pokemon list is asked
   useEffect(() => {
     setPokemonList([]);
     setPokemonInfo([]);
     getPokemonList();
   }, []);
 
+  // if pokemon list is updated, pokemon info list is asked
   useEffect(() => {
     getPokemonInfo(pokemonList);
   }, [pokemonList]);
 
+  // on page changes, data are refreshed
   useEffect(() => {
     setPokemonList([]);
     setPokemonInfo([]);
@@ -89,7 +96,7 @@ const Main = () => {
     getPokemonList();
   }, [pagination.offset]);
 
-  const [filters, setFilters] = useState([
+  const filters = [
     "normal",
     "grass",
     "fire",
@@ -98,7 +105,8 @@ const Main = () => {
     "ice",
     "electric",
     "flying",
-  ]);
+  ];
+
   const [activeFilters, setActiveFilters] = useState({
     normal: true,
     grass: true,
@@ -109,12 +117,17 @@ const Main = () => {
     electric: true,
     flying: true,
   });
+
+  // filtered list status to know which one display
   const [listFiltered, setListFiltered] = useState(false);
+  // filter active
   const [filter, setFilter] = useState(null);
 
+  // filters logic
   function handleCheckbox(evt) {
     const { name, checked } = evt.target;
     if (!listFiltered || checked) {
+      // case 1: a filter is activated -> a filtered list is created and displayed
       filters.forEach((label) => {
         setActiveFilters((prev) => ({
           ...prev,
@@ -125,6 +138,7 @@ const Main = () => {
       filterPokemon(name);
       setListFiltered(true);
     } else if (!checked) {
+      // case 2: with a filtered list to update and a filter already activated clicked -> reset of list and filters
       getPokemonList();
       filters.forEach((label) => {
         setActiveFilters((prev) => ({
@@ -138,6 +152,7 @@ const Main = () => {
     }
   }
 
+  // once the filter type is activated, it's used to filter the pokemon info list and save the new list in the filtered version
   function filterPokemon(filter) {
     setFilteredPokemonList([]);
     let newPokemonList = [];
@@ -149,8 +164,10 @@ const Main = () => {
     setFilteredPokemonList(newPokemonList);
   }
 
+  // pokemon to display in the pokedex
   const [pokemonSelected, setPokemonSelected] = useState(null);
 
+  // to update pokedex pokemon
   function handleCardClick(pokemon) {
     setPokemonSelected(pokemon);
   }

@@ -1,5 +1,3 @@
-import "../style/infoCard.css";
-
 const InfoCard = ({ pokemon }) => {
   const { image, name, id, height, weight, abilities, types, sprites } =
     pokemon;

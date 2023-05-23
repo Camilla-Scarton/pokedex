@@ -1,0 +1,39 @@
+@media (max-width: 700px) {
+    .main-container {
+        gap: 15px;
+    }
+    h2 {
+        text-align: center;
+    }
+    .instructions {
+        flex-direction: column;
+    }
+    p {
+        padding: 20px;
+    }
+    .filters-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 800px) {
+    .filters {
+        gap: 15px;
+    }
+    .filters label {
+        font-size: 30px;
+    }
+    .number {
+        display: none;
+    }
+    .name {
+        padding-left: 10px;
+        font-size: 27px;
+    }
+    img {
+        max-height: 60px;
+    }
+    .card {
+        height: 60px;
+    }
+}
