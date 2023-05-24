@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Camilla-Scarton/pokedex/static/css/main.888ae41b.css",
+    "main.js": "/Camilla-Scarton/pokedex/static/js/main.ffc93961.js",
+    "index.html": "/Camilla-Scarton/pokedex/index.html",
+    "main.888ae41b.css.map": "/Camilla-Scarton/pokedex/static/css/main.888ae41b.css.map",
+    "main.ffc93961.js.map": "/Camilla-Scarton/pokedex/static/js/main.ffc93961.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.888ae41b.css",
+    "static/js/main.ffc93961.js"
+  ]
+}
